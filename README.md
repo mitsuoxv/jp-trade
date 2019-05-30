@@ -13,8 +13,11 @@ Updated: 2019-05-30
 
 ## Summary
 
+<https://mitsuoxv.shinyapps.io/jp-trade/>
+
 I download Japan international trade monthly data from January 2009,
-make them tidy, and save them to use for Shiny app.
+make them tidy, and save them to use for Shiny app. And I have created
+the Shiny app above.
 
 ## Function
 
