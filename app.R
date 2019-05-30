@@ -14,6 +14,12 @@ library(tidyverse)
 # load data
 trade <- readRDS(file = "data/trade.rds")
 
+# factorize `Exp or Imp`
+levels_exim <- trade$`Exp or Imp` %>% unique()
+
+trade$`Exp or Imp` <- factor(trade$`Exp or Imp`, levels = levels_exim)
+levels(trade$`Exp or Imp`) <- c("export", "import")
+
 # create menus
 levels_area <- trade$Area %>% unique()
 
@@ -92,8 +98,7 @@ draw_value <- function(df) {
   df %>% 
     ggplot(aes(x = month, y = value, color = `Exp or Imp`)) +
     geom_line() +
-    scale_color_discrete(name = "",
-                         labels = c("export", "import")) +
+    scale_color_discrete(name = "") +
     labs(
       title = str_c(df$goods[1], " with ", df$Area[1]),
       x = "", y = "billion yen per month"
@@ -106,8 +111,7 @@ draw_gr <- function(df) {
     ggplot(aes(x = month, y = gr, color = `Exp or Imp`)) +
     geom_hline(yintercept = 0, color = "white", size = 2) +
     geom_line() +
-    scale_color_discrete(name = "",
-                         labels = c("export", "import")) +
+    scale_color_discrete(name = "") +
     labs(
       title = str_c("Growth rates of ", df$goods[1], " with ", df$Area[1]),
       x = "", y = "YoY percent"
@@ -139,7 +143,7 @@ server <- function(input, output) {
   
   output$export_area <- DT::renderDataTable({
     trade_year %>% 
-      filter(`Exp or Imp` == 1, 
+      filter(`Exp or Imp` == "export", 
         Area != "Grand Total",
         goods == input$select_goods,
         year == input$year) %>% 
@@ -151,7 +155,7 @@ server <- function(input, output) {
 
   output$import_area <- DT::renderDataTable({
     trade_year %>% 
-      filter(`Exp or Imp` == 2, 
+      filter(`Exp or Imp` == "import", 
              Area != "Grand Total",
              goods == input$select_goods,
              year == input$year) %>% 
@@ -163,7 +167,7 @@ server <- function(input, output) {
   
   output$export_goods <- DT::renderDataTable({
     trade_year %>% 
-      filter(`Exp or Imp` == 1, 
+      filter(`Exp or Imp` == "export", 
              goods != "Grand Total",
              Area == input$select_area,
              year == input$year) %>% 
@@ -175,7 +179,7 @@ server <- function(input, output) {
   
   output$import_goods <- DT::renderDataTable({
     trade_year %>% 
-      filter(`Exp or Imp` == 2, 
+      filter(`Exp or Imp` == "import", 
              goods != "Grand Total",
              Area == input$select_area,
              year == input$year) %>% 
