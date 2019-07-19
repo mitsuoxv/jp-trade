@@ -9,7 +9,7 @@ Mitsuo Shiota
   - [Save data in a rds file](#save-data-in-a-rds-file)
   - [Charts](#charts)
 
-Updated: 2019-05-30
+Updated: 2019-07-19
 
 ## Summary
 
