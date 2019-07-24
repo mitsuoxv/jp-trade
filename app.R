@@ -12,39 +12,7 @@ library(shiny)
 library(tidyverse)
 
 # load data
-trade <- readRDS(file = "data/trade.rds")
-
-# factorize `Exp or Imp`
-levels_exim <- trade$`Exp or Imp` %>% unique()
-
-trade$`Exp or Imp` <- factor(trade$`Exp or Imp`, levels = levels_exim)
-levels(trade$`Exp or Imp`) <- c("export", "import")
-
-# create menus
-levels_area <- trade$Area %>% unique()
-
-levels_goods <- trade$goods %>% unique()
-
-# add gr (growth rates on year-over-year basis)
-trade <- trade %>% 
-  group_by(`Exp or Imp`, Area, goods) %>% 
-  arrange(month) %>% 
-  mutate(
-    lag_12 = lag(value, 12),
-    gr = ((value / lag_12) - 1) * 100
-  ) %>% 
-  ungroup() %>% 
-  select(-lag_12)
-
-# annual data
-trade_year <- trade %>% 
-  mutate(
-    year = lubridate::year(month)
-  ) %>% 
-  group_by(`Exp or Imp`, Area, goods, year) %>% 
-  summarize(value = sum(value)) %>% 
-  ungroup()
-
+load("data/jptrade.rdata")
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -89,7 +57,15 @@ ui <- fluidPage(
            DT::dataTableOutput("export_goods")),
     column(6, h4("Import of goods, billion yen per year"), 
            DT::dataTableOutput("import_goods"))
-  )
+  ),
+  hr(),
+  
+  # Show source and Shiny app creator
+  a(href = "http://www.customs.go.jp/toukei/info/index_e.htm", 
+    "Source: Trade Statistics of Japan, Ministry of Finance"),
+  br(),
+  a(href = "https://mitsuoxv.rbind.io/", 
+    "Shiny app creator: Mitsuo Shiota")
 )
 
 
