@@ -208,7 +208,7 @@ export_china %>%
 
 ```
 
-## Save data in a rds file
+## Save data in a rdata file
 
 I save necessary data in a rdata file to use for Shiny app.
 

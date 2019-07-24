@@ -6,10 +6,10 @@ Mitsuo Shiota
   - [Summary](#summary)
   - [Function](#function)
   - [Download](#download)
-  - [Save data in a rds file](#save-data-in-a-rds-file)
   - [Charts](#charts)
+  - [Save data in a rds file](#save-data-in-a-rds-file)
 
-Updated: 2019-07-19
+Updated: 2019-07-24
 
 ## Summary
 
@@ -88,19 +88,50 @@ Added areas of export in April 2017 are:
 
     ## [1] "VIETNAM" "QATAR"
 
-## Save data in a rds file
-
-I have saved a data frame in a rds file.
-
-``` r
-saveRDS(trade, file = "data/trade.rds")
-```
-
 ## Charts
 
-I have drawn charts of export to China, as an
-example.
+I have drawn charts of export to China, as an example.
 
 ![](README_files/figure-gfm/charts-1.png)<!-- -->![](README_files/figure-gfm/charts-2.png)<!-- -->
+
+## Save data in a rds file
+
+I save necessary data in a rdata file to use for Shiny app.
+
+``` r
+# factorize `Exp or Imp`
+levels_exim <- trade$`Exp or Imp` %>% unique()
+
+trade$`Exp or Imp` <- factor(trade$`Exp or Imp`, levels = levels_exim)
+levels(trade$`Exp or Imp`) <- c("export", "import")
+
+# create menus
+levels_area <- trade$Area %>% unique()
+
+levels_goods <- trade$goods %>% unique()
+
+# add gr (growth rates on year-over-year basis)
+trade <- trade %>% 
+  group_by(`Exp or Imp`, Area, goods) %>% 
+  arrange(month) %>% 
+  mutate(
+    lag_12 = lag(value, 12),
+    gr = ((value / lag_12) - 1) * 100
+  ) %>% 
+  ungroup() %>% 
+  select(-lag_12)
+
+# annual data
+trade_year <- trade %>% 
+  mutate(
+    year = lubridate::year(month)
+  ) %>% 
+  group_by(`Exp or Imp`, Area, goods, year) %>% 
+  summarize(value = sum(value)) %>% 
+  ungroup()
+
+save(trade, trade_year, levels_area, levels_goods,
+     file = "data/jptrade.rdata")
+```
 
 EOL
