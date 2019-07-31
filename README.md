@@ -7,9 +7,9 @@ Mitsuo Shiota
   - [Function](#function)
   - [Download](#download)
   - [Charts](#charts)
-  - [Save data in a rds file](#save-data-in-a-rds-file)
+  - [Save data in a rdata file](#save-data-in-a-rdata-file)
 
-Updated: 2019-07-24
+Updated: 2019-07-31
 
 ## Summary
 
@@ -94,7 +94,7 @@ I have drawn charts of export to China, as an example.
 
 ![](README_files/figure-gfm/charts-1.png)<!-- -->![](README_files/figure-gfm/charts-2.png)<!-- -->
 
-## Save data in a rds file
+## Save data in a rdata file
 
 I save necessary data in a rdata file to use for Shiny app.
 
