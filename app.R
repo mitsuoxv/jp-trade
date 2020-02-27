@@ -31,8 +31,8 @@ ui <- fluidPage(
   sliderInput("year_range",
               label = h4("Select year range"), 
               min = 2009,
-              max = 2019,
-              value = c(2011, 2019),
+              max = 2020,
+              value = c(2011, 2020),
               sep = ""),
   fluidRow(
     column(6, plotOutput("plot_value")),
@@ -42,8 +42,8 @@ ui <- fluidPage(
   sliderInput("year",
               label = h4("Select year"), 
               min = 2009,
-              max = 2019,
-              value = 2019,
+              max = 2020,
+              value = 2020,
               sep = ""),
   fluidRow(
     column(6, h4("Export to area, billion yen per year"), 

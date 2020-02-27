@@ -39,8 +39,15 @@ read_url_year <- function(url, year, n_area, start_month = 1) {
   httr::GET(url, httr::write_disk(tf))
   
   # read
-  data <- read_csv(tf, skip = 1)
+  data_txt <- readLines(tf)
   
+  if (str_detect(data_txt[1], ",")) {
+    data <- read_csv(data_txt, skip = 1)
+  } else {
+    data_csv <- data_txt[str_detect(data_txt, ",")]
+    data <- read_csv(data_csv)
+  }
+
   # delete non-data rows
   data <- data %>% 
     filter(`Exp or Imp` %in% c("1", "2"))
@@ -77,7 +84,11 @@ After I download data, I have combined them into one data frame, and transformed
 
 ```{r download, include=FALSE, cache=FALSE}
 # Export
-# Download 2018-2019
+# Download 2018-2020
+export2020 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031914422&fileKind=1",
+                          2020, n_area = 53) %>% 
+  mutate(`Exp or Imp` = as.character(`Exp or Imp`))
+
 export2019 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031907373&fileKind=1",
                           2019, n_area = 53)
 
@@ -112,11 +123,16 @@ for (i in seq_along(export)) {
 export_df <- bind_rows(export)
 
 export_df <- export_df %>% 
-  bind_rows(export2017_1_3, export2017_4_12, export2018, export2019)
+  bind_rows(export2017_1_3, export2017_4_12,
+            export2018, export2019, export2020)
 
 
 # Import
-# Download 2018-2019
+# Download 2018-2020
+import2020 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031914423&fileKind=1",
+                            2020, n_area = 51) %>% 
+  mutate(`Exp or Imp` = as.character(`Exp or Imp`))
+
 import2019 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031907374&fileKind=1",
                             2019, n_area = 51)
 
@@ -152,7 +168,8 @@ for (i in seq_along(import)) {
 import_df <- bind_rows(import)
 
 import_df <- import_df %>% 
-  bind_rows(import2017_1_3, import2017_4_12, import2018, import2019)
+  bind_rows(import2017_1_3, import2017_4_12,
+            import2018, import2019, import2020)
 
 
 # combine export and import

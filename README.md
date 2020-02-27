@@ -9,7 +9,7 @@ Mitsuo Shiota
   - [Charts](#charts)
   - [Save data in a rdata file](#save-data-in-a-rdata-file)
 
-Updated: 2020-01-30
+Updated: 2020-02-27
 
 ## Summary
 
@@ -42,8 +42,15 @@ read_url_year <- function(url, year, n_area, start_month = 1) {
   httr::GET(url, httr::write_disk(tf))
   
   # read
-  data <- read_csv(tf, skip = 1)
+  data_txt <- readLines(tf)
   
+  if (str_detect(data_txt[1], ",")) {
+    data <- read_csv(data_txt, skip = 1)
+  } else {
+    data_csv <- data_txt[str_detect(data_txt, ",")]
+    data <- read_csv(data_csv)
+  }
+
   # delete non-data rows
   data <- data %>% 
     filter(`Exp or Imp` %in% c("1", "2"))
