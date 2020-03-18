@@ -73,7 +73,7 @@ ui <- fluidPage(
 draw_value <- function(df) {
   df %>% 
     ggplot(aes(x = month, y = value, color = `Exp or Imp`)) +
-    geom_line() +
+    geom_line(size = 1) +
     scale_color_discrete(name = "") +
     labs(
       title = str_c(df$goods[1], " with ", df$Area[1]),
@@ -86,7 +86,7 @@ draw_gr <- function(df) {
   df %>% 
     ggplot(aes(x = month, y = gr, color = `Exp or Imp`)) +
     geom_hline(yintercept = 0, color = "white", size = 2) +
-    geom_line() +
+    geom_line(size = 1) +
     scale_color_discrete(name = "") +
     labs(
       title = str_c("Growth rates of ", df$goods[1], " with ", df$Area[1]),

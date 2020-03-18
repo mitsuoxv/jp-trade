@@ -87,7 +87,7 @@ After I download data, I have combined them into one data frame, and transformed
 # Download 2018-2020
 export2020 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031914422&fileKind=1",
                           2020, n_area = 53) %>% 
-  mutate(`Exp or Imp` = as.character(`Exp or Imp`))
+  mutate(`Exp or Imp` = as.character(`Exp or Imp`)) # only for January
 
 export2019 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031907373&fileKind=1",
                           2019, n_area = 53)
@@ -131,7 +131,7 @@ export_df <- export_df %>%
 # Download 2018-2020
 import2020 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031914423&fileKind=1",
                             2020, n_area = 51) %>% 
-  mutate(`Exp or Imp` = as.character(`Exp or Imp`))
+  mutate(`Exp or Imp` = as.character(`Exp or Imp`)) # only for January
 
 import2019 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031907374&fileKind=1",
                             2019, n_area = 51)
