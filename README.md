@@ -9,7 +9,7 @@ Mitsuo Shiota
   - [Charts](#charts)
   - [Save data in a rdata file](#save-data-in-a-rdata-file)
 
-Updated: 2020-05-13
+Updated: 2020-06-26
 
 ## Summary
 
@@ -136,7 +136,11 @@ trade_year <- trade %>%
   group_by(`Exp or Imp`, Area, goods, year) %>% 
   summarize(value = sum(value)) %>% 
   ungroup()
+```
 
+    ## `summarise()` regrouping output by 'Exp or Imp', 'Area', 'goods' (override with `.groups` argument)
+
+``` r
 save(trade, trade_year, levels_area, levels_goods,
      file = "data/jptrade.rdata")
 ```
