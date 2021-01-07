@@ -9,7 +9,7 @@ Mitsuo Shiota
   - [Charts](#charts)
   - [Save data in a rdata file](#save-data-in-a-rdata-file)
 
-Updated: 2020-11-30
+Updated: 2021-01-07
 
 ## Summary
 
@@ -70,7 +70,8 @@ read_url_year <- function(url, year, n_area, start_month = 1) {
   data <- data %>% 
     filter(month != "13") %>% 
     mutate(month = str_c(year, "-", month, "-01") %>% as.Date()) %>% 
-    gather(key = "goods", value = "value", -1, -2, -month)
+    pivot_longer(!c(1:2, month), names_to = "goods", values_to = "value")
+#    gather(key = "goods", value = "value", -1, -2, -month)
   
   data$value <- as.numeric(data$value)
   
