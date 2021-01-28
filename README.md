@@ -74,7 +74,7 @@ read_url_year <- function(url, year, n_area, start_month = 1) {
     mutate(
       value = as.numeric(value),
       goods = str_to_title(goods),
-      Area = str_to_title(Area)
+      Area = ifelse(Area %in% c("USA", "EU"), Area, str_to_title(Area))
       )
 }
 ```
@@ -132,7 +132,7 @@ trade <- trade %>%
 # annual data
 trade_year <- trade %>% 
   mutate(
-    year = lubridate::year(month)
+    year = year(month)
   ) %>% 
   group_by(`Exp or Imp`, Area, goods, year) %>% 
   summarize(value = sum(value), .groups = "drop")
