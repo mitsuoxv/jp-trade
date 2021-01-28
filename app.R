@@ -43,7 +43,7 @@ ui <- fluidPage(
               label = h4("Select year"), 
               min = 2009,
               max = 2020,
-              value = 2019,
+              value = 2020,
               sep = ""),
   fluidRow(
     column(6, h4("Export to area, billion yen per year"), 

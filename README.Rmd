@@ -253,7 +253,7 @@ trade <- trade %>%
 # annual data
 trade_year <- trade %>% 
   mutate(
-    year = lubridate::year(month)
+    year = year(month)
   ) %>% 
   group_by(`Exp or Imp`, Area, goods, year) %>% 
   summarize(value = sum(value), .groups = "drop")
