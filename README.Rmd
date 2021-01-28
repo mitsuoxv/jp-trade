@@ -23,7 +23,7 @@ I download Japan international trade monthly data from January 2009, make them t
 
 ```{r libraries, include=FALSE}
 library(tidyverse)
-
+library(lubridate)
 ```
 ## Function
 
@@ -42,10 +42,10 @@ read_url_year <- function(url, year, n_area, start_month = 1) {
   data_txt <- readLines(tf)
   
   if (str_detect(data_txt[1], ",")) {
-    data <- read_csv(data_txt, skip = 1)
+    data <- read_csv(data_txt, skip = 1, col_types = cols(.default = col_character()))
   } else {
     data_csv <- data_txt[str_detect(data_txt, ",")]
-    data <- read_csv(data_csv)
+    data <- read_csv(data_csv, col_types = cols(.default = col_character()))
   }
 
   # delete non-data rows
@@ -61,20 +61,19 @@ read_url_year <- function(url, year, n_area, start_month = 1) {
     months[((i - 1) * n_area + 1):(i * n_area)] <- str_c("0", (i + start_month - 1)) %>% str_sub(start = -2L)
   }
   
-  data$month <- months
+  data$month <- as.integer(months)
   
   # delete annual data, and make it tidy
-  data <- data %>% 
-    filter(month != "13") %>% 
-    mutate(month = str_c(year, "-", month, "-01") %>% as.Date()) %>% 
-    pivot_longer(!c(1:2, month), names_to = "goods", values_to = "value")
-#    gather(key = "goods", value = "value", -1, -2, -month)
-  
-  data$value <- as.numeric(data$value)
-  
-  data
+  data %>% 
+    filter(month != 13) %>% 
+    mutate(month = make_date(year, month, 1)) %>% 
+    pivot_longer(!c(1:2, month), names_to = "goods", values_to = "value") %>% 
+    mutate(
+      value = as.numeric(value),
+      goods = str_to_title(goods),
+      Area = str_to_title(Area)
+      )
 }
-
 ```
 
 ## Download
@@ -86,9 +85,8 @@ After I download data, I have combined them into one data frame, and transformed
 ```{r download, include=FALSE, cache=FALSE}
 # Export
 # Download 2018-2020
-export2020 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032037043&fileKind=1",
-                          2020, n_area = 53) %>% 
-  mutate(`Exp or Imp` = as.character(`Exp or Imp`)) # only for January
+export2020 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032046141&fileKind=1",
+                          2020, n_area = 53)
 
 export2019 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031907373&fileKind=1",
                           2019, n_area = 53)
@@ -130,9 +128,8 @@ export_df <- export_df %>%
 
 # Import
 # Download 2018-2020
-import2020 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032037044&fileKind=1",
-                            2020, n_area = 51) %>% 
-  mutate(`Exp or Imp` = as.character(`Exp or Imp`)) # only for January
+import2020 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032046142&fileKind=1",
+                            2020, n_area = 51)
 
 import2019 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031907374&fileKind=1",
                             2019, n_area = 51)
@@ -198,14 +195,14 @@ I have drawn charts of export to China, as an example.
 ```{r charts, warning=FALSE, echo=FALSE}
 export_china <- trade %>% 
   filter(`Exp or Imp` == 1) %>% 
-  filter(Area == "CHINA", goods == "Grand Total")
+  filter(Area == "China", goods == "Grand Total")
 
 export_china %>% 
   ggplot(aes(x = month, y = value)) +
   geom_line() +
   labs(
     title = str_c("Export of ", export_china$goods[1], " to ", export_china$Area[1]),
-    x = "", y = "billion yen per month"
+    x = NULL, y = "billion yen per month"
   )
 
 export_china %>% 
@@ -221,7 +218,7 @@ export_china %>%
   geom_line() +
   labs(
     title = str_c("Growth rates of export of ", export_china$goods[1], " to ", export_china$Area[1]),
-    x = "", y = "YoY percent"
+    x = NULL, y = "YoY percent"
   )
 
 ```

@@ -3,13 +3,13 @@ Japan international trade
 Mitsuo Shiota
 2019-05-30
 
-  - [Summary](#summary)
-  - [Function](#function)
-  - [Download](#download)
-  - [Charts](#charts)
-  - [Save data in a rdata file](#save-data-in-a-rdata-file)
+-   [Summary](#summary)
+-   [Function](#function)
+-   [Download](#download)
+-   [Charts](#charts)
+-   [Save data in a rdata file](#save-data-in-a-rdata-file)
 
-Updated: 2021-01-07
+Updated: 2021-01-28
 
 ## Summary
 
@@ -45,10 +45,10 @@ read_url_year <- function(url, year, n_area, start_month = 1) {
   data_txt <- readLines(tf)
   
   if (str_detect(data_txt[1], ",")) {
-    data <- read_csv(data_txt, skip = 1)
+    data <- read_csv(data_txt, skip = 1, col_types = cols(.default = col_character()))
   } else {
     data_csv <- data_txt[str_detect(data_txt, ",")]
-    data <- read_csv(data_csv)
+    data <- read_csv(data_csv, col_types = cols(.default = col_character()))
   }
 
   # delete non-data rows
@@ -64,18 +64,18 @@ read_url_year <- function(url, year, n_area, start_month = 1) {
     months[((i - 1) * n_area + 1):(i * n_area)] <- str_c("0", (i + start_month - 1)) %>% str_sub(start = -2L)
   }
   
-  data$month <- months
+  data$month <- as.integer(months)
   
   # delete annual data, and make it tidy
-  data <- data %>% 
-    filter(month != "13") %>% 
-    mutate(month = str_c(year, "-", month, "-01") %>% as.Date()) %>% 
-    pivot_longer(!c(1:2, month), names_to = "goods", values_to = "value")
-#    gather(key = "goods", value = "value", -1, -2, -month)
-  
-  data$value <- as.numeric(data$value)
-  
-  data
+  data %>% 
+    filter(month != 13) %>% 
+    mutate(month = make_date(year, month, 1)) %>% 
+    pivot_longer(!c(1:2, month), names_to = "goods", values_to = "value") %>% 
+    mutate(
+      value = as.numeric(value),
+      goods = str_to_title(goods),
+      Area = str_to_title(Area)
+      )
 }
 ```
 
@@ -94,7 +94,7 @@ transformed values from thousand to billion yen.
 
 Added areas of export in April 2017 are:
 
-    ## [1] "VIETNAM" "QATAR"
+    ## [1] "Vietnam" "Qatar"
 
 ## Charts
 
