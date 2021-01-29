@@ -58,9 +58,7 @@ read_url_year <- function(url, year, n_area, start_month = 1) {
   # add month column
   n_months <- nrow(data) / n_area
   
-  data$month <- rep(start_month:(start_month + n_months - 1), n_area) %>% 
-    matrix(nrow = n_area, byrow = TRUE) %>%
-    as.integer()
+  data$month <- rep(start_month:(start_month + n_months - 1), each = n_area)
   
   # delete annual data, and make it tidy
   data %>% 
