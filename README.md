@@ -9,7 +9,7 @@ Mitsuo Shiota
 -   [Charts](#charts)
 -   [Save data in a rdata file](#save-data-in-a-rdata-file)
 
-Updated: 2021-01-28
+Updated: 2021-01-29
 
 ## Summary
 
@@ -56,14 +56,11 @@ read_url_year <- function(url, year, n_area, start_month = 1) {
     filter(`Exp or Imp` %in% c("1", "2"))
   
   # add month column
-  months <- NULL
-
-  for (i in start_month:13) {
-    if (length(months) == nrow(data)) break
-    months <- c(months, rep(i, n_area))
-  }
-
-  data$month <- months
+  n_months <- nrow(data) / n_area
+  
+  data$month <- rep(start_month:(start_month + n_months - 1), n_area) %>% 
+    matrix(nrow = n_area, byrow = TRUE) %>%
+    as.integer()
   
   # delete annual data, and make it tidy
   data %>% 
