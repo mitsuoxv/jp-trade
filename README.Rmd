@@ -255,9 +255,7 @@ trade_year <- trade %>%
   group_by(`Exp or Imp`, Area, goods, year) %>% 
   summarize(value = sum(value), .groups = "drop")
 
-usethis::use_data(trade, trade_year,
-                  internal = TRUE,
-                  overwrite = TRUE)
+usethis::use_data(trade, trade_year, overwrite = TRUE)
 
 ```
 

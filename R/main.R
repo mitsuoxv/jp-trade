@@ -9,8 +9,8 @@
 #' mainApp()
 #' }
 mainApp <- function() {
-  levels_area <- trade$Area %>% unique()
-  levels_goods <- trade$goods %>% unique()
+  levels_area <- trade_year$Area %>% unique()
+  levels_goods <- trade_year$goods %>% unique()
   
   mainui <- fluidPage(
     titlePanel("Japan international trade"),
@@ -19,12 +19,14 @@ mainApp <- function() {
       column(4,
              selectInput("select_area",
                          label = h4("Select area"),
-                         choices = levels_area)
+                         choices = levels_area,
+                         selected = "Grand Total"),
       ),
       column(4,
              selectInput("select_goods",
                          label = h4("Select goods"),
-                         choices = levels_goods)
+                         choices = levels_goods,
+                         selected = "Grand Total")
       ),
       column(4,
              sliderInput("year_range",

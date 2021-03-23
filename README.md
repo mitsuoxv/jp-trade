@@ -107,11 +107,6 @@ levels_exim <- trade$`Exp or Imp` %>% unique()
 trade$`Exp or Imp` <- factor(trade$`Exp or Imp`, levels = levels_exim)
 levels(trade$`Exp or Imp`) <- c("export", "import")
 
-# create menus
-levels_area <- trade$Area %>% unique()
-
-levels_goods <- trade$goods %>% unique()
-
 # add gr (growth rates on year-over-year basis)
 trade <- trade %>% 
   group_by(`Exp or Imp`, Area, goods) %>% 
@@ -131,9 +126,7 @@ trade_year <- trade %>%
   group_by(`Exp or Imp`, Area, goods, year) %>% 
   summarize(value = sum(value), .groups = "drop")
 
-usethis::use_data(trade, trade_year, levels_area, levels_goods,
-                  internal = TRUE,
-                  overwrite = TRUE)
+usethis::use_data(trade, trade_year, overwrite = TRUE)
 ```
 
 EOL
