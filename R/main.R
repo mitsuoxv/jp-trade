@@ -9,8 +9,8 @@
 #' mainApp()
 #' }
 mainApp <- function() {
-  levels_area <- trade_year$Area %>% unique()
-  levels_goods <- trade_year$goods %>% unique()
+  levels_area <- trade$Area %>% unique() %>% sort()
+  levels_goods <- trade$goods %>% unique()
   
   mainui <- fluidPage(
     titlePanel("Japan international trade"),

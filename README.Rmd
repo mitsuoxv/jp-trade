@@ -242,16 +242,14 @@ trade <- trade %>%
   arrange(month) %>% 
   mutate(
     lag_12 = lag(value, 12),
-    gr = ((value / lag_12) - 1) * 100
+    gr = (value / lag_12) - 1
   ) %>% 
   ungroup() %>% 
   select(-lag_12)
 
 # annual data
 trade_year <- trade %>% 
-  mutate(
-    year = year(month)
-  ) %>% 
+  mutate(year = year(month)) %>% 
   group_by(`Exp or Imp`, Area, goods, year) %>% 
   summarize(value = sum(value), .groups = "drop")
 

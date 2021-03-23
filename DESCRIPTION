@@ -5,8 +5,7 @@ Authors@R:
     person(given = "Mitsuo",
            family = "Shiota",
            role = c("aut", "cre"),
-           email = "mitsuoxv@gmail.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "mitsuoxv@gmail.com")
 Description: Select country and/or goods, and you can see trade data with Japan.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -19,6 +18,7 @@ Imports:
     ggplot2,
     magrittr,
     pkgload,
+    scales,
     shiny,
     stringr
 Depends: 
