@@ -17,7 +17,9 @@ Imports:
     dplyr,
     DT,
     ggplot2,
+    magrittr,
     pkgload,
+    shiny,
     stringr
 Depends: 
     R (>= 4.0.4)

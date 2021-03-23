@@ -7,3 +7,4 @@
 ^app\.R$
 ^\.Rproj\.user$
 ^google-analytics\.html$
+^README_cache$
