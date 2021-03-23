@@ -1,0 +1,23 @@
+Package: jptrade
+Title: Shiny app for Japan Trade Data
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Mitsuo",
+           family = "Shiota",
+           role = c("aut", "cre"),
+           email = "mitsuoxv@gmail.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Select country and/or goods, and you can see trade data with Japan.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    dplyr,
+    DT,
+    ggplot2,
+    pkgload,
+    stringr
+Depends: 
+    R (>= 4.0.4)
