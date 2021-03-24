@@ -3,7 +3,7 @@
 #' Show table in DT format
 #'
 #' @param df A dataframe.
-#' @param ex_im either "export" or "import"
+#' @param em either "export" or "import"
 #' @param ar_go either area or goods
 #'
 #' @return A DT table
