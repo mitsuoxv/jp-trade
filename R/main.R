@@ -50,22 +50,22 @@ mainApp <- function() {
     ),
     fluidRow(
       column(6,
-             h4("Export to area, billion yen per year"),
+             h4(textOutput("ex_goods")),
              DT::dataTableOutput("export_area")
       ),
       column(6,
-             h4("Import from area, billion yen per year"),
+             h4(textOutput("im_goods")),
              DT::dataTableOutput("import_area")
       )
     ),
     hr(),
     fluidRow(
       column(6,
-             h4("Export of goods, billion yen per year"),
+             h4(textOutput("ex_area")),
              DT::dataTableOutput("export_goods")
       ),
       column(6,
-             h4("Import of goods, billion yen per year"),
+             h4(textOutput("im_area")),
              DT::dataTableOutput("import_goods")
       )
     ),
@@ -80,6 +80,22 @@ mainApp <- function() {
   )
   
   mainserver <- function(input, output, session) {
+    output$ex_area <- renderText(
+      paste0("Export to ", input$select_area, ", billion yen per year")
+      )
+    
+    output$im_area <- renderText(
+      paste0("Import from ", input$select_area, ", billion yen per year")
+    )
+    
+    output$ex_goods <- renderText(
+      paste0("Export of ", input$select_goods, ", billion yen per year")
+    )
+    
+    output$im_goods <- renderText(
+      paste0("Import of ", input$select_goods, ", billion yen per year")
+    )
+    
     chart_data1 <- reactive({
       trade %>%
         dplyr::filter(area == input$select_area,
