@@ -172,12 +172,18 @@ import_df <- import_df %>%
 
 
 # combine export and import
-trade <- export_df %>% 
-  bind_rows(import_df)
+trade <- bind_rows(export_df, import_df)
 
-# from K yen to B yen
+# value: from K yen to B yen
+# Area: rename
+# `Exp or Imp`: rename, factorize and rename levels 
 trade <- trade %>% 
-  mutate(value = value / 1000000)
+  mutate(value = value / 1000000) %>% 
+  rename(
+    area = Area,
+    ex_im = `Exp or Imp`
+    ) %>% 
+  mutate(ex_im = ex_im %>% fct_recode(export = "1", import = "2"))
 
 ```
 
@@ -195,15 +201,15 @@ I have drawn charts of export to China, as an example.
 
 ```{r charts, warning=FALSE, echo=FALSE}
 export_china <- trade %>% 
-  filter(`Exp or Imp` == 1) %>% 
-  filter(Area == "China", goods == "Grand Total")
+  filter(ex_im == "export") %>% 
+  filter(area == "China", goods == "Grand Total")
 
 export_china %>% 
   ggplot(aes(x = month, y = value)) +
   geom_line() +
   scale_y_continuous(labels = comma) +
   labs(
-    title = str_c("Export of ", export_china$goods[1], " to ", export_china$Area[1]),
+    title = str_c("Export of ", export_china$goods[1], " to ", export_china$area[1]),
     x = NULL, y = "billion yen per month"
   )
 
@@ -219,7 +225,7 @@ export_china %>%
   geom_hline(yintercept = 0, color = "white", size = 2) +
   geom_line() +
   labs(
-    title = str_c("Growth rates of export of ", export_china$goods[1], " to ", export_china$Area[1]),
+    title = str_c("Growth rates of export of ", export_china$goods[1], " to ", export_china$area[1]),
     x = NULL, y = "YoY percent"
   )
 
@@ -230,15 +236,9 @@ export_china %>%
 I save necessary data in a rdata file to use for Shiny app.
 
 ```{r save, message=FALSE}
-# factorize `Exp or Imp`
-levels_exim <- trade$`Exp or Imp` %>% unique()
-
-trade$`Exp or Imp` <- factor(trade$`Exp or Imp`, levels = levels_exim)
-levels(trade$`Exp or Imp`) <- c("export", "import")
-
 # add gr (growth rates on year-over-year basis)
 trade <- trade %>% 
-  group_by(`Exp or Imp`, Area, goods) %>% 
+  group_by(ex_im, area, goods) %>% 
   arrange(month) %>% 
   mutate(
     lag_12 = lag(value, 12),
@@ -250,7 +250,7 @@ trade <- trade %>%
 # annual data
 trade_year <- trade %>% 
   mutate(year = year(month)) %>% 
-  group_by(`Exp or Imp`, Area, goods, year) %>% 
+  group_by(ex_im, area, goods, year) %>% 
   summarize(value = sum(value), .groups = "drop")
 
 usethis::use_data(trade, trade_year, overwrite = TRUE)

@@ -7,13 +7,13 @@
 draw_gr(df)
 }
 \arguments{
-\item{df}{}
+\item{df}{A dataframe.}
 }
 \value{
 A plot.
 }
 \description{
-Plot growth rates
+Plot two lines of YoY growth rates of both "export" and "import" over time
 }
 \examples{
 \dontrun{

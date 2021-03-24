@@ -7,13 +7,13 @@
 draw_value(df)
 }
 \arguments{
-\item{df}{}
+\item{df}{A dataframe.}
 }
 \value{
 A plot.
 }
 \description{
-Plot volume
+Plot two lines of volumes of both "export" and "import" over time
 }
 \examples{
 \dontrun{

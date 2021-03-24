@@ -9,7 +9,7 @@
 #' mainApp()
 #' }
 mainApp <- function() {
-  levels_area <- trade$Area %>% unique() %>% sort()
+  levels_area <- trade$area %>% unique() %>% sort()
   levels_goods <- trade$goods %>% unique()
   
   mainui <- fluidPage(
@@ -82,7 +82,7 @@ mainApp <- function() {
   mainserver <- function(input, output, session) {
     chart_data1 <- reactive({
       trade %>%
-        dplyr::filter(Area == input$select_area,
+        dplyr::filter(area == input$select_area,
                       goods == input$select_goods)
     })
     
@@ -93,7 +93,7 @@ mainApp <- function() {
           month <= paste0(input$year_range[2], "-12-01")
         ) %>%
         draw_value()
-    })
+    }, res = 96)
     
     output$plot_gr <- renderPlot({
       chart_data1() %>%
@@ -102,62 +102,42 @@ mainApp <- function() {
           month <= paste0(input$year_range[2], "-12-01")
         ) %>%
         draw_gr()
+    }, res = 96)
+    
+    table_data1 <- reactive({
+      trade_year %>%
+        dplyr::filter(
+          goods == input$select_goods,
+          year == input$year
+        ) 
     })
     
     output$export_area <- DT::renderDataTable({
-      trade_year %>%
-        dplyr::filter(
-          `Exp or Imp` == "export",
-          Area != "Grand Total",
-          goods == input$select_goods,
-          year == input$year
-        ) %>%
-        dplyr::select(Area, value) %>%
-        dplyr::mutate(value = round(value, 0)) %>%
-        dplyr::arrange(desc(value)) %>%
-        DT::datatable()
+      table_data1() %>%
+        show_table("export", area)
     })
     
     output$import_area <- DT::renderDataTable({
+      table_data1() %>%
+        show_table("import", area)
+    })
+    
+    table_data2 <- reactive({
       trade_year %>%
         dplyr::filter(
-          `Exp or Imp` == "import",
-          Area != "Grand Total",
-          goods == input$select_goods,
+          area == input$select_area,
           year == input$year
-        ) %>%
-        dplyr::select(Area, value) %>%
-        dplyr::mutate(value = round(value, 0)) %>%
-        dplyr::arrange(desc(value)) %>%
-        DT::datatable()
+        ) 
     })
     
     output$export_goods <- DT::renderDataTable({
-      trade_year %>%
-        dplyr::filter(
-          `Exp or Imp` == "export",
-          goods != "Grand Total",
-          Area == input$select_area,
-          year == input$year
-        ) %>%
-        dplyr::select(goods, value) %>%
-        dplyr::mutate(value = round(value, 0)) %>%
-        dplyr::arrange(desc(value)) %>%
-        DT::datatable()
+      table_data2() %>%
+        show_table("export", goods)
     })
     
     output$import_goods <- DT::renderDataTable({
-      trade_year %>%
-        dplyr::filter(
-          `Exp or Imp` == "import",
-          goods != "Grand Total",
-          Area == input$select_area,
-          year == input$year
-        ) %>%
-        dplyr::select(goods, value) %>%
-        dplyr::mutate(value = round(value, 0)) %>%
-        dplyr::arrange(desc(value)) %>%
-        DT::datatable()
+      table_data2() %>%
+        show_table("import", goods)
     })
   }
   

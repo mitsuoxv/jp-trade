@@ -9,7 +9,7 @@ Mitsuo Shiota
 -   [Charts](#charts)
 -   [Save data in a rdata file](#save-data-in-a-rdata-file)
 
-Updated: 2021-03-23
+Updated: 2021-03-24
 
 ## Summary
 
@@ -101,15 +101,9 @@ I have drawn charts of export to China, as an example.
 I save necessary data in a rdata file to use for Shiny app.
 
 ``` r
-# factorize `Exp or Imp`
-levels_exim <- trade$`Exp or Imp` %>% unique()
-
-trade$`Exp or Imp` <- factor(trade$`Exp or Imp`, levels = levels_exim)
-levels(trade$`Exp or Imp`) <- c("export", "import")
-
 # add gr (growth rates on year-over-year basis)
 trade <- trade %>% 
-  group_by(`Exp or Imp`, Area, goods) %>% 
+  group_by(ex_im, area, goods) %>% 
   arrange(month) %>% 
   mutate(
     lag_12 = lag(value, 12),
@@ -121,7 +115,7 @@ trade <- trade %>%
 # annual data
 trade_year <- trade %>% 
   mutate(year = year(month)) %>% 
-  group_by(`Exp or Imp`, Area, goods, year) %>% 
+  group_by(ex_im, area, goods, year) %>% 
   summarize(value = sum(value), .groups = "drop")
 
 usethis::use_data(trade, trade_year, overwrite = TRUE)

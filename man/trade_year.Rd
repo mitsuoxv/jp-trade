@@ -7,8 +7,8 @@
 \format{
 Dataframe
 \describe{
-\item{\verb{Exp or Imp}}{factor of "export" or "import"}
-\item{Area}{Area category}
+\item{ex_im}{factor of "export" or "import"}
+\item{area}{Area category}
 \item{goods}{goods category}
 \item{year}{double}
 \item{value}{billion yen per year}
