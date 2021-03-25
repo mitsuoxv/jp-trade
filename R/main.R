@@ -100,7 +100,8 @@ mainApp <- function() {
       trade %>%
         dplyr::filter(area == input$select_area,
                       goods == input$select_goods)
-    })
+      }) %>% 
+      bindCache(input$select_area, input$select_goods)
     
     output$plot_value <- renderPlot({
       chart_data1() %>%
@@ -126,7 +127,8 @@ mainApp <- function() {
           goods == input$select_goods,
           year == input$year
         ) 
-    })
+      }) %>% 
+      bindCache(input$select_goods, input$year)
     
     output$export_area <- DT::renderDataTable({
       table_data1() %>%
