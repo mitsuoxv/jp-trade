@@ -105,8 +105,8 @@ mainApp <- function() {
     output$plot_value <- renderPlot({
       chart_data1() %>%
         dplyr::filter(
-          month >= paste0(input$year_range[1], "-01-01"),
-          month <= paste0(input$year_range[2], "-12-01")
+          month >= lubridate::make_date(input$year_range[1], 1, 1),
+          month <= lubridate::make_date(input$year_range[2], 12, 1)
         ) %>%
         draw_value()
     }, res = 96)
@@ -114,8 +114,8 @@ mainApp <- function() {
     output$plot_gr <- renderPlot({
       chart_data1() %>%
         dplyr::filter(
-          month >= paste0(input$year_range[1], "-01-01"),
-          month <= paste0(input$year_range[2], "-12-01")
+          month >= lubridate::make_date(input$year_range[1], 1, 1),
+          month <= lubridate::make_date(input$year_range[2], 12, 1)
         ) %>%
         draw_gr()
     }, res = 96)
