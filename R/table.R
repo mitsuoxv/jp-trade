@@ -19,7 +19,7 @@ show_table <- function(df, em, ar_go) {
       {{ ar_go }} != "Grand Total"
     ) %>%
     dplyr::select({{ ar_go }}, value) %>%
-    dplyr::arrange(desc(value)) %>%
+    dplyr::arrange(dplyr::desc(value)) %>%
     DT::datatable() %>% 
     DT::formatRound('value', digits = 0, interval = 3, mark = ",")
 }
