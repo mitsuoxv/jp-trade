@@ -9,7 +9,7 @@ Mitsuo Shiota
 -   [Charts](#charts)
 -   [Save data in a rdata file](#save-data-in-a-rdata-file)
 
-Updated: 2021-03-24
+Updated: 2021-03-26
 
 ## Summary
 
@@ -118,7 +118,11 @@ trade_year <- trade %>%
   group_by(ex_im, area, goods, year) %>% 
   summarize(value = sum(value), .groups = "drop")
 
-usethis::use_data(trade, trade_year, overwrite = TRUE)
+# prepare menus
+levels_area <- trade$area %>% unique() %>% sort()
+levels_goods <- trade$goods %>% unique()
+
+usethis::use_data(trade, trade_year, levels_area, levels_goods, overwrite = TRUE)
 ```
 
 EOL

@@ -29,3 +29,25 @@
 #' \item{value}{billion yen per year}
 #' }
 "trade_year"
+
+#' Areas
+#'
+#' Areas by alphabetical order.
+#'
+#' @source http://www.customs.go.jp/toukei/info/index_e.htm
+#' @format A character vector
+#' \describe{
+#' \item{distinct areas}{"China", "EU", R Korea", "USA"}
+#' }
+"levels_area"
+
+#' Goods
+#'
+#' Goods by first appearance order.
+#'
+#' @source http://www.customs.go.jp/toukei/info/index_e.htm
+#' @format A character vector
+#' \describe{
+#' \item{distinct goods}{"Transport Equipment", "Machinery"}
+#' }
+"levels_goods"
