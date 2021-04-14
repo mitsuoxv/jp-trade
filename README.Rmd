@@ -80,7 +80,7 @@ After I download data, I have combined them into one data frame, and transformed
 ```{r download, include=FALSE, cache=FALSE}
 # Export
 # Download 2018-2021
-export2021 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032060124&fileKind=1",
+export2021 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032067775&fileKind=1",
                           2021, n_area = 53)
 
 export2020 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032046141&fileKind=1",
@@ -126,7 +126,7 @@ export_df <- export_df %>%
 
 # Import
 # Download 2018-2021
-import2021 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032060125&fileKind=1",
+import2021 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032067776&fileKind=1",
                             2021, n_area = 51)
 
 import2020 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032046142&fileKind=1",

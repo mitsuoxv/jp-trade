@@ -5,6 +5,7 @@
 ^jptrade\.Rproj$
 ^rsconnect$
 ^app\.R$
+^.*\.Rproj$
 ^\.Rproj\.user$
 ^google-analytics\.html$
 ^README_cache$
