@@ -9,9 +9,9 @@ show_table(df, em, ar_go)
 \arguments{
 \item{df}{A dataframe.}
 
-\item{em}{either "export" or "import"}
+\item{em}{A character, either "export" or "import"}
 
-\item{ar_go}{either area or goods}
+\item{ar_go}{A symbol, either area or goods}
 }
 \value{
 A DT table

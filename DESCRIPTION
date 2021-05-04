@@ -24,3 +24,8 @@ Imports:
     stringr
 Depends: 
     R (>= 4.0)
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+URL: https://github.com/mitsuoxv/jp-trade
+BugReports: https://github.com/mitsuoxv/jp-trade/issues

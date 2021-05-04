@@ -3,8 +3,8 @@
 #' Show table in DT format
 #'
 #' @param df A dataframe.
-#' @param em either "export" or "import"
-#' @param ar_go either area or goods
+#' @param em A character, either "export" or "import"
+#' @param ar_go A symbol, either area or goods
 #'
 #' @return A DT table
 #'

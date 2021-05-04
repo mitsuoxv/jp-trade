@@ -9,6 +9,11 @@ Mitsuo Shiota
 -   [Charts](#charts)
 -   [Save data in a rdata file](#save-data-in-a-rdata-file)
 
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/mitsuoxv/jp-trade/workflows/R-CMD-check/badge.svg)](https://github.com/mitsuoxv/jp-trade/actions)
+<!-- badges: end -->
+
 Updated: 2021-04-28
 
 ## Summary

@@ -10,3 +10,4 @@
 ^google-analytics\.html$
 ^README_cache$
 ^appFileManifest$
+^\.github$

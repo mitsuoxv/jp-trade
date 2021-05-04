@@ -4,8 +4,10 @@ NAMESPACE
 R/data.R
 R/draw.R
 R/main.R
+R/monthPlot.R
 R/table.R
 R/utils-pipe.R
+R/yearTable.R
 data/levels_area.rda
 data/levels_goods.rda
 data/trade_year.rda
