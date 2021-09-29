@@ -14,7 +14,7 @@ Mitsuo Shiota
 [![R-CMD-check](https://github.com/mitsuoxv/jp-trade/workflows/R-CMD-check/badge.svg)](https://github.com/mitsuoxv/jp-trade/actions)
 <!-- badges: end -->
 
-Updated: 2021-07-29
+Updated: 2021-09-29
 
 ## Summary
 
@@ -50,12 +50,14 @@ read_url_year <- function(url, year, n_area, start_month = 1) {
   data_txt <- readLines(tf)
   
   if (str_detect(data_txt[1], ",")) {
-    data <- read_csv(data_txt, skip = 1, col_types = cols(.default = col_character()))
-  } else {
-    data_csv <- data_txt[str_detect(data_txt, ",")]
-    data <- read_csv(data_csv, col_types = cols(.default = col_character()))
+    data_txt <- data_txt[-1]
   }
-
+  
+  data_csv <- data_txt[str_detect(data_txt, ",")] %>% 
+    paste(collapse = "\n")
+  
+  data <- read_csv(data_csv, col_types = cols(.default = col_character()))
+  
   # delete non-data rows
   data <- data %>% 
     filter(`Exp or Imp` %in% c("1", "2"))

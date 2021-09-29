@@ -47,12 +47,14 @@ read_url_year <- function(url, year, n_area, start_month = 1) {
   data_txt <- readLines(tf)
   
   if (str_detect(data_txt[1], ",")) {
-    data <- read_csv(data_txt, skip = 1, col_types = cols(.default = col_character()))
-  } else {
-    data_csv <- data_txt[str_detect(data_txt, ",")]
-    data <- read_csv(data_csv, col_types = cols(.default = col_character()))
+    data_txt <- data_txt[-1]
   }
-
+  
+  data_csv <- data_txt[str_detect(data_txt, ",")] %>% 
+    paste(collapse = "\n")
+  
+  data <- read_csv(data_csv, col_types = cols(.default = col_character()))
+  
   # delete non-data rows
   data <- data %>% 
     filter(`Exp or Imp` %in% c("1", "2"))
@@ -84,7 +86,7 @@ After I download data, I have combined them into one data frame, and transformed
 ```{r download, include=FALSE, cache=FALSE}
 # Export
 # Download 2018-2021
-export2021 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032108174&fileKind=1",
+export2021 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032121275&fileKind=1",
                           2021, n_area = 53)
 
 export2020 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032046141&fileKind=1",
@@ -130,7 +132,7 @@ export_df <- export_df %>%
 
 # Import
 # Download 2018-2021
-import2021 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032108175&fileKind=1",
+import2021 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032121276&fileKind=1",
                             2021, n_area = 51)
 
 import2020 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032046142&fileKind=1",
