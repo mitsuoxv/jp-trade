@@ -14,7 +14,7 @@ Mitsuo Shiota
 [![R-CMD-check](https://github.com/mitsuoxv/jp-trade/workflows/R-CMD-check/badge.svg)](https://github.com/mitsuoxv/jp-trade/actions)
 <!-- badges: end -->
 
-Updated: 2021-09-29
+Updated: 2021-10-29
 
 ## Summary
 
@@ -48,10 +48,7 @@ read_url_year <- function(url, year, n_area, start_month = 1) {
   
   # read
   data_txt <- readLines(tf)
-  
-  if (str_detect(data_txt[1], ",")) {
-    data_txt <- data_txt[-1]
-  }
+  data_txt <- data_txt[-1]
   
   data_csv <- data_txt[str_detect(data_txt, ",")] %>% 
     paste(collapse = "\n")
