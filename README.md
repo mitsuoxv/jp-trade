@@ -14,7 +14,7 @@ Mitsuo Shiota
 [![R-CMD-check](https://github.com/mitsuoxv/jp-trade/workflows/R-CMD-check/badge.svg)](https://github.com/mitsuoxv/jp-trade/actions)
 <!-- badges: end -->
 
-Updated: 2021-10-29
+Updated: 2021-11-26
 
 ## Summary
 
