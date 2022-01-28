@@ -4,7 +4,7 @@ yearTableUI <- function(id) {
       column(4,
              sliderInput(NS(id, "year"),
                          label = h4("Select year"),
-                         min = 2009, max = 2020, value = 2020,
+                         min = 2009, max = 2021, value = 2021,
                          sep = "")
       )
     ),

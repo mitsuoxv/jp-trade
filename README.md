@@ -14,7 +14,7 @@ Mitsuo Shiota
 [![R-CMD-check](https://github.com/mitsuoxv/jp-trade/workflows/R-CMD-check/badge.svg)](https://github.com/mitsuoxv/jp-trade/actions)
 <!-- badges: end -->
 
-Updated: 2021-12-25
+Updated: 2022-01-28
 
 ## Summary
 
@@ -35,7 +35,7 @@ page](https://www.e-stat.go.jp/stat-search/files?page=1&layout=datalist&toukei=0
 The format of a csv file is a vertically stacked list of 12 monthly plus
 one annual data, whose rows are areas, columns are goods, and numbers
 are thousand yen. The number of areas of export changes from 51 to 53 in
-April 2017. I have made read\_url\_year function to download a csv file,
+April 2017. I have made read_url_year function to download a csv file,
 read it, delete non-data rows, add month column, delete annual data, and
 make it tidy.
 
@@ -81,7 +81,7 @@ read_url_year <- function(url, year, n_area, start_month = 1) {
 
 I have to know statInfId number to download through REST API
 <https://www.e-stat.go.jp/stat-search/file-download>. I have tried
-estat\_getDataCatalog function in [estatapi
+estat_getDataCatalog function in [estatapi
 package](https://cran.rstudio.com/web/packages/estatapi/estatapi.pdf),
 but failed. So I manually get them from CSV mark in [each
 page](https://www.e-stat.go.jp/stat-search/files?page=1&layout=datalist&toukei=00350300&bunya_l=16&tstat=000001013137&cycle=1&year=20190&month=12040604&tclass1=000001013260&tclass2=000001013261&result_back=1&second2=1).
