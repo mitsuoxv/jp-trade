@@ -3,18 +3,19 @@ Japan international trade
 Mitsuo Shiota
 2019-05-30
 
--   [Summary](#summary)
--   [Function](#function)
--   [Download](#download)
--   [Charts](#charts)
--   [Save data in a rdata file](#save-data-in-a-rdata-file)
+-   <a href="#summary" id="toc-summary">Summary</a>
+-   <a href="#function" id="toc-function">Function</a>
+-   <a href="#download" id="toc-download">Download</a>
+-   <a href="#charts" id="toc-charts">Charts</a>
+-   <a href="#save-data-in-a-rdata-file"
+    id="toc-save-data-in-a-rdata-file">Save data in a rdata file</a>
 
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/mitsuoxv/jp-trade/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mitsuoxv/jp-trade/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-Updated: 2022-06-29
+Updated: 2022-07-29
 
 ## Summary
 
