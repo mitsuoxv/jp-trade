@@ -82,7 +82,10 @@ After I download data, I have combined them into one data frame, and transformed
 
 ```{r download, include=FALSE, cache=FALSE}
 # Export
-# Download 2018-2022
+# Download 2018-2023
+export2023 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040022836&fileKind=1",
+                          2023, n_area = 53)
+
 export2022 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040009356&fileKind=1",
                           2022, n_area = 53)
 
@@ -127,11 +130,15 @@ export_df <- bind_rows(export)
 
 export_df <- export_df %>% 
   bind_rows(export2017_1_3, export2017_4_12,
-            export2018, export2019, export2020, export2021, export2022)
+            export2018, export2019, export2020,
+            export2021, export2022, export2023)
 
 
 # Import
-# Download 2018-2022
+# Download 2018-2023
+import2023 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040022837&fileKind=1",
+                            2023, n_area = 51)
+
 import2022 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040009357&fileKind=1",
                             2022, n_area = 51)
 
@@ -177,7 +184,8 @@ import_df <- bind_rows(import)
 
 import_df <- import_df %>% 
   bind_rows(import2017_1_3, import2017_4_12,
-            import2018, import2019, import2020, import2021, import2022)
+            import2018, import2019, import2020,
+            import2021, import2022, import2023)
 
 
 # combine export and import
