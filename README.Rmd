@@ -27,9 +27,9 @@ I download Japan international trade monthly data from January 2009, make them t
 
 ```{r libraries, include=FALSE}
 library(tidyverse)
-library(lubridate)
 library(scales)
 ```
+
 ## Function
 
 [e-Stat](https://www.e-stat.go.jp/en) provides summarized data as csv files in its [export page](https://www.e-stat.go.jp/stat-search/files?page=1&layout=datalist&toukei=00350300&bunya_l=16&tstat=000001013137&cycle=1&tclass1=000001013260&tclass2=000001013261&second2=1) and [import page](https://www.e-stat.go.jp/stat-search/files?page=1&layout=datalist&toukei=00350300&bunya_l=16&tstat=000001013137&cycle=1&tclass1=000001013260&tclass2=000001013262&second2=1).
@@ -83,10 +83,10 @@ After I download data, I have combined them into one data frame, and transformed
 ```{r download, include=FALSE, cache=FALSE}
 # Export
 # Download 2018-2023
-export2023 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040113693&fileKind=1",
+export2023 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040121313&fileKind=1",
                           2023, n_area = 53)
 
-export2022 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040030218&fileKind=1",
+export2022 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040117930&fileKind=1",
                           2022, n_area = 53)
 
 export2021 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032255223&fileKind=1",
@@ -133,13 +133,12 @@ export_df <- export_df %>%
             export2018, export2019, export2020,
             export2021, export2022, export2023)
 
-
 # Import
 # Download 2018-2023
-import2023 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040113694&fileKind=1",
+import2023 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040121314&fileKind=1",
                             2023, n_area = 51)
 
-import2022 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040030219&fileKind=1",
+import2022 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040117931&fileKind=1",
                             2022, n_area = 51)
 
 import2021 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032255224&fileKind=1",
