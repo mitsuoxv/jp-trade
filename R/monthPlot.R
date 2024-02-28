@@ -4,7 +4,7 @@ monthPlotUI <- function(id) {
       column(4,
              sliderInput(NS(id, "year_range"),
                          label = h4("Select year range"),
-                         min = 2009, max = 2023, value = c(2011, 2023),
+                         min = 2009, max = 2024, value = c(2011, 2024),
                          sep = "")
       ),
     ),
