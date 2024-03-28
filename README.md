@@ -14,7 +14,7 @@ Mitsuo Shiota
 [![R-CMD-check](https://github.com/mitsuoxv/jp-trade/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mitsuoxv/jp-trade/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-Updated: 2024-02-28
+Updated: 2024-03-28
 
 ## Summary
 
@@ -58,7 +58,7 @@ read_url_year <- function(url, year, n_area, start_month = 1) {
   # delete non-data rows
   data <- data %>% 
     filter(`Exp or Imp` %in% c("1", "2"))
-  
+
   # add month column
   n_months <- nrow(data) / n_area
   
