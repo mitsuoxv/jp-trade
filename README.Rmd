@@ -83,10 +83,10 @@ After I download data, I have combined them into one data frame, and transformed
 ```{r download, include=FALSE, cache=FALSE}
 # Export
 # Download 2018-2024
-export2024 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040220253&fileKind=1",
+export2024 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040226896&fileKind=1",
                           2024, n_area = 53)
 
-export2023 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040155022&fileKind=1",
+export2023 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040223718&fileKind=1",
                           2023, n_area = 53)
 
 export2022 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040117930&fileKind=1",
@@ -139,10 +139,10 @@ export_df <- export_df %>%
 
 # Import
 # Download 2018-2024
-import2024 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040220254&fileKind=1",
+import2024 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040226897&fileKind=1",
                             2024, n_area = 51)
 
-import2023 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040155023&fileKind=1",
+import2023 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040223719&fileKind=1",
                             2023, n_area = 51)
 
 import2022 <- read_url_year("https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040117931&fileKind=1",
