@@ -81,11 +81,10 @@ I have to know statInfId number to download through REST API https://www.e-stat.
 After I download data, I have combined them into one data frame, and transformed values from thousand to billion yen.
 
 ```{r download, include=FALSE, cache=FALSE}
-# Export
-# Download 2018-2025
+# Prepare 2018-
 yr_urls_ex_2018 <- tibble(
   year = 2018:2025,
-  urls = paste0(
+  urls = c(paste0(
     "https://www.e-stat.go.jp/stat-search/file-download?statInfId=",
     c(
       "000031792595", # 2018
@@ -94,13 +93,33 @@ yr_urls_ex_2018 <- tibble(
       "000032255223", # 2021
       "000040117930", # 2022
       "000040223718", # 2023
-      "000040256286", # 2024
-      "000040251145" # 2025
+      "000040256286" # 2024
     ),
     "&fileKind=1"
-  )
+  ),
+  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040264108&fileKind=1") # 2025
 )
 
+yr_urls_im_2018 <- tibble(
+  year = 2018:2025,
+  urls = c(paste0(
+    "https://www.e-stat.go.jp/stat-search/file-download?statInfId=",
+    c(
+      "000031792596", # 2018
+      "000031907374", # 2019
+      "000032046142", # 2020
+      "000032255224", # 2021
+      "000040117931", # 2022
+      "000040223719", # 2023
+      "000040256287" # 2024
+    ),
+    "&fileKind=1"
+  ),
+  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040264109&fileKind=1") # 2025
+)
+
+# Export
+# Download 2018-2025
 export2018l <- map2(yr_urls_ex_2018$urls, yr_urls_ex_2018$year, read_url_year, n_area = 53)
 
 # Download 2017
@@ -133,32 +152,8 @@ yr_urls_ex_2009 <- tibble(
 
 export2009l <- map2(yr_urls_ex_2009$urls, yr_urls_ex_2009$year, read_url_year, n_area = 51)
 
-# Combine
-export_df <- list_rbind(
-  c(export2009l, list(export2017_1_3, export2017_4_12), export2018l)
-)
-
-
 # Import
 # Download 2018-2025
-yr_urls_im_2018 <- tibble(
-  year = 2018:2025,
-  urls = paste0(
-    "https://www.e-stat.go.jp/stat-search/file-download?statInfId=",
-    c(
-      "000031792596", # 2018
-      "000031907374", # 2019
-      "000032046142", # 2020
-      "000032255224", # 2021
-      "000040117931", # 2022
-      "000040223719", # 2023
-      "000040256287", # 2024
-      "000040251146" # 2025
-    ),
-    "&fileKind=1"
-  )
-)
-
 import2018l <- map2(yr_urls_im_2018$urls, yr_urls_im_2018$year, read_url_year, n_area = 51)
 
 # Download 2017
@@ -192,14 +187,10 @@ yr_urls_im_2009 <- tibble(
 
 import2009l <- map2(yr_urls_im_2009$urls, yr_urls_im_2009$year, read_url_year, n_area = 51)
 
-# Combine
-import_df <- list_rbind(
-  c(import2009l, list(import2017_1_3, import2017_4_12), import2018l)
-)
-
-
 # combine export and import
-trade <- bind_rows(export_df, import_df)
+trade <- list_rbind(
+  c(export2009l, list(export2017_1_3, export2017_4_12), export2018l, import2009l, list(import2017_1_3, import2017_4_12), import2018l)
+)
 
 # value: from K yen to B yen
 # Area: rename
