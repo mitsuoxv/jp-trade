@@ -97,7 +97,7 @@ yr_urls_ex_2018 <- tibble(
     ),
     "&fileKind=1"
   ),
-  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040325343&fileKind=1") # 2025
+  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040364414&fileKind=1") # 2025
 )
 
 yr_urls_im_2018 <- tibble(
@@ -115,7 +115,7 @@ yr_urls_im_2018 <- tibble(
     ),
     "&fileKind=1"
   ),
-  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040325344&fileKind=1") # 2025
+  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040364415&fileKind=1") # 2025
 )
 
 # Export
