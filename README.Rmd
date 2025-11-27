@@ -93,11 +93,11 @@ yr_urls_ex_2018 <- tibble(
       "000032255223", # 2021
       "000040117930", # 2022
       "000040223718", # 2023
-      "000040256286" # 2024
+      "000040369342" # 2024
     ),
     "&fileKind=1"
   ),
-  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040364414&fileKind=1") # 2025
+  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040373321&fileKind=1") # 2025
 )
 
 yr_urls_im_2018 <- tibble(
@@ -111,11 +111,11 @@ yr_urls_im_2018 <- tibble(
       "000032255224", # 2021
       "000040117931", # 2022
       "000040223719", # 2023
-      "000040256287" # 2024
+      "000040369343" # 2024
     ),
     "&fileKind=1"
   ),
-  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040364415&fileKind=1") # 2025
+  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040373322&fileKind=1") # 2025
 )
 
 # Export
