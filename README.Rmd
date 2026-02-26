@@ -83,7 +83,7 @@ After I download data, I have combined them into one data frame, and transformed
 ```{r download, include=FALSE, cache=FALSE}
 # Prepare 2018-
 yr_urls_ex_2018 <- tibble(
-  year = 2018:2025,
+  year = 2018:2026,
   urls = c(paste0(
     "https://www.e-stat.go.jp/stat-search/file-download?statInfId=",
     c(
@@ -93,15 +93,16 @@ yr_urls_ex_2018 <- tibble(
       "000032255223", # 2021
       "000040117930", # 2022
       "000040223718", # 2023
-      "000040369342" # 2024
+      "000040369342", # 2024
+      "000040405062" # 2025
     ),
     "&fileKind=1"
   ),
-  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040405062&fileKind=1") # 2025
+  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040416904&fileKind=1") # 2026
 )
 
 yr_urls_im_2018 <- tibble(
-  year = 2018:2025,
+  year = 2018:2026,
   urls = c(paste0(
     "https://www.e-stat.go.jp/stat-search/file-download?statInfId=",
     c(
@@ -111,15 +112,16 @@ yr_urls_im_2018 <- tibble(
       "000032255224", # 2021
       "000040117931", # 2022
       "000040223719", # 2023
-      "000040369343" # 2024
+      "000040369343", # 2024
+      "000040405063" # 2025 
     ),
     "&fileKind=1"
   ),
-  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040405063&fileKind=1") # 2025
+  "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040416905&fileKind=1") # 2026
 )
 
 # Export
-# Download 2018-2025
+# Download 2018-2026
 export2018l <- map2(yr_urls_ex_2018$urls, yr_urls_ex_2018$year, read_url_year, n_area = 53)
 
 # Download 2017
@@ -153,7 +155,7 @@ yr_urls_ex_2009 <- tibble(
 export2009l <- map2(yr_urls_ex_2009$urls, yr_urls_ex_2009$year, read_url_year, n_area = 51)
 
 # Import
-# Download 2018-2025
+# Download 2018-2026
 import2018l <- map2(yr_urls_im_2018$urls, yr_urls_im_2018$year, read_url_year, n_area = 51)
 
 # Download 2017
