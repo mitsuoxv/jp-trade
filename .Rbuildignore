@@ -11,3 +11,5 @@
 ^README_cache$
 ^appFileManifest$
 ^\.github$
+^\.positai$
+^\.claude$
